@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h2 My Profile
+    .row.my-profile
+        .col-sm-2.image-section 
+            if user.image != ''            
+                img.random-pic(src='/uploads/'+user.image alt=user.name)                            
+            else
+                <i class="fas fa-user random-pic"></i>   
+        .col-sm-10
+            .row
+                form(action="/users/editMyProfile" method="POST")
+                    .col-sm-12.bio-data
+                        .row
+                            .col-sm-6  
+                                .form-group                     
+                                    label(for="name") Name
+                                    input#name.form-control(type="text" name="name" value=user.name)
+                        
+                            .col-sm-6         
+                                .form-group        
+                                    label(for="email_address") Emaill Address
+                                    input#email_address.form-control(type="text" name="email_address" value=user.email)
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label(for="dob") Date of Birth
+                                    input#dob.form-control(type="date" name="dob" value=user.dob)
+                            .col-md-6
+                                .form-group
+                                    .row(style="margin:32px 0 0px -11px")
+                                        .col-sm-4
+                                            input(type="submit" name="submit" id="submit" class="btn btn-primary" value="Update") 
+                                            input.user_id#form-control(type="hidden" name="user_id" value=user._id)
+                                        .col-sm-1
+                                            | &nbsp;
+                                        .col-sm-6                                        
+                                            a(href="/users/changePassword" style="font-size:11px;margin:5px 0 0 0;") Change Password

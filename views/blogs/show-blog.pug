@@ -1,0 +1,61 @@
+extends ../layout 
+
+block content
+    div.row
+        div.col-sm-12
+            div.row.post-box-main 
+                div.col-sm-8
+                    h3 #{blog.title} 
+                div.col-sm-4.text-sm-right
+                    h6.date
+                        small #{(blog.dateTime).toString().substring(0, 24)}                                    
+            div.row 
+                div.col-sm-auto
+                    small Category: 
+                        a(href="#") #{category}                                                                        
+            div.row
+                div.col-sm-auto 
+                    small Posted By:&nbsp;&nbsp;
+                        a(href="#") #{author}
+                
+            div.row
+                div.col-sm-12 !{blog.description}
+            div.row 
+                div.col-sm-12 
+                    div.row
+                        div.col-md-2
+                            a(href="#") 2 <i class="far fa-thumbs-up"></i>
+                        div.col-md-2
+                            a(href="#") 10 <i class="far fa-comments"></i>
+    hr
+    if(comments!='')        
+        ul
+            each comment, i in comments
+                li.comment-box                     
+                    | !{comment.comment}
+                    | #{comment_author}
+    else 
+        i No comments yet....
+    hr                        
+    .row
+        .col-sm-12
+            form(action="/comments/save", method="post" onSubmit="return requiredComment()")
+                .form-group
+                    label(for="comment") Post Your Comment
+                    textarea#comment(name="comment", cols="30", rows="5" class="form-control")
+                .form-group
+                    input(type="submit" name="submit" id="submit" value="Post Comment" class="btn btn-primary")
+                    input#blog_id(type="hidden" name="blog_id" value=blog._id)                    
+
+    script(src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js")
+    script.
+        CKEDITOR.replace('comment');
+
+        function requiredComment() {
+            let comment_data = document.getElementById('comment').value;
+            if(comment_data.trim()=='') {
+                alert("Please enter comment before submit");
+                document.getElementById('comment').focus();                
+                return false;
+            }          
+        }

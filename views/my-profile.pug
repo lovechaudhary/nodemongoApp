@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    h2 My Profile
+    .row.my-profile
+        .col-sm-2.image-section 
+            if user.image != ''            
+                img.random-pic(src='/uploads/'+user.image alt=user.name)                            
+            else
+                <i class="fas fa-user random-pic"></i>                
+        .col-sm-6.bio-data
+            .row
+                .col-sm-10
+                    i #{user.name}    
+            .row
+                .col-sm-10
+                    i Member Since 
+                        u #{JSON.stringify(user.profile_created).substring(1, 11)}
+            .row
+                .col-sm-10
+                    i Registred with 
+                    u #{user.email}
+            .row
+                .col-sm-10
+                    i Account Status 
+                        u #{(user.isdislay)? 'Active' : 'Deactivate'}
+        .col-sm-4
+            .col.text-right
+                a(href="/users/editMyProfile" style="font-size:11px;margin:5px 0 0 0;") <i class="far fa-edit"></i> Edit Profile Data
+                br
+                a(href="/users/changePassword" style="font-size:11px;margin:5px 0 0 0;") <i class="far fa-edit"></i> Change Password
+    .row
+        .col-sm-3
+            a(href="javascript:;" data-toggle="modal" data-target="#changePicModal") Change Profile Picture
+
+
+    //- Change pic modal
+    form(action="/users/changePic" method="POST" enctype='multipart/form-data')
+        #changePicModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="changePicModalLabel", aria-hidden="true")
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header
+                        h5#changePicModalLabel.modal-title Change Profile Picture
+                        button.close(type="button" data-dismiss="modal", aria-label="Close")
+                        span(aria-hidden="true") x
+                    .modal-body
+                        |
+                        .form-group
+                            label(for="pic") Choose Picture
+                            input(type="file" name="pic" id="pic" class="form-control" required)
+                            input#user_id(type="hidden" name="user_id" value=user._id)
+                            input#current_pic_data(type="hidden" name="current_pic_data" value=user.image)
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                        button.btn.btn-primary(type='submit') Save Changes

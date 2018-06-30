@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    h2 Registration Form
+    form(action='/users/register' method='POST' enctype='multipart/form-data')
+        .form-group
+            label(for='name') Name*            
+            input#name.form-control(type="text" name="name" value=name)
+        .form-group
+            label(for='email_address') Email Address*            
+            input#email_address.form-control(type="text" name="email_address" value=email)
+        .form-group
+            label(for='dob') Date of Birth            
+            input#dob.form-control(type="date" name="dob" value=dob)
+        .form-group
+            label(for='pwd') password*
+            input#pwd.form-control(type="password" name="pwd" value=pwd)            
+        .form-group
+            label(for='cpwd') Confirm Password*
+            input#cpwd.form-control(type="password" name="cpwd" value=cpwd)            
+        .form-group
+            label(for='pic') Profile Picture
+            input(type='file' name='pic' id='pic' class='form-control')
+        .form-group
+            input(type='submit' name='submit' value='Register' class='btn btn-primary')
+            

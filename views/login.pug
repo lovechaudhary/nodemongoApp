@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h2 Login Section
+    form(action="/users/login", method="POST")
+        .form-group
+            label(for="email_address") Email        
+            input#email_address.form-control(type="email" name="email_address" value=email)
+        .form-group
+            label(for="pwd") Password
+            input#pwd.form-control(type="password" name="pwd" value=pwd)
+        .form-group
+            input(type="submit" name="submit" id="submit" class="btn btn-primary")

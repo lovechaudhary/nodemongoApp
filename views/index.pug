@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    h2 #{title}
+    ul
+        each val in post
+            li.post-list 
+                div.row
+                    div.col-sm-12
+                        div.row.post-box-main 
+                            div.col-sm-8
+                                h3 
+                                    a(href="/blogs/selection/"+val._id) #{val.title} 
+                            div.col-sm-4
+                                h6.date
+                                    small #{(val.dateTime).toString().substring(0, 24)}                                    
+                        //- div.row 
+                        //-     div.col-sm-auto
+                        //-         small Category: 
+                        //-             a#cats(href="#") #{val.category}                                                                        
+                        //- div.row
+                        //-     div.col-sm-auto 
+                        //-         small Posted By:&nbsp;&nbsp;
+                        //-             a(href="#") #{val.author}
+                            
+                        div.row                            
+                            div.col-sm-12 !{(val.description).substring(0, 200)}
+                                a(href="#") &nbsp;<small>Read more..</small>
+                        div.row 
+                            div.col-sm-12 
+                                div.row
+                                    div.col-md-2
+                                        a(href="#") 2 <i class="far fa-thumbs-up"></i>
+                                    div.col-md-2
+                                        a(href="#") 10 <i class="far fa-comments"></i>
+                hr                        
+                
